@@ -1,0 +1,29 @@
+@startuml
+class MeetLog {
+        __init__()
+}
+class Walker {
+    save()
+    walk()
+    count_colocations()
+    restore_walker()
+        pt
+    meet_count
+    pt
+    __init__()
+}
+class Model {
+    step()
+    log_agents()
+    at_end()
+    start()
+    run()
+        runner
+    context
+    grid
+    agent_logger
+    meet_log
+    data_set
+    __init__()
+}
+@enduml
