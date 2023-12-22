@@ -92,9 +92,9 @@ class Model:
     def __init__(self, comm: MPI.Intracomm, params: Dict):
         # create the schedule
         self.runner = schedule.init_schedule_runner(comm)
-        self.runner.schedule_repeating_event(1, 1, self.step)
-        self.runner.schedule_repeating_event(1.1, 10, self.log_agents)
-        self.runner.schedule_stop(params['stop.at'])
+        self.runner.schedule_repeating_event(1, 1, self.step)#programa llamar la funcion step() en el tick 1 y repetirlo cada 1 tick
+        self.runner.schedule_repeating_event(1.1, 10, self.log_agents)#programa llamar la función log_agents() en el tick 1.1 y repetirlo cada 10 tick
+        self.runner.schedule_stop(params['stop.at'])#prgrama en que tick finaliza la simulación, el mismo esta alacenado en la clave stop.at del diccionario params
         self.runner.schedule_end_event(self.at_end)
 
         # create the context to hold the agents and manage cross process
@@ -173,4 +173,4 @@ if __name__ == "__main__":
     parser = parameters.create_args_parser()
     args = parser.parse_args()
     params = parameters.init_params(args.parameters_file, args.parameters)
-    run(params)
+    run(params)#params es un diccionario con los parámetros que estan en el archivo random_walk.yaml

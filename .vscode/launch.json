@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug MPI Program",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/rndwalk.py",
+        "args": ["random_walk.yaml"],
+        "mpi": true,
+        "mpiexec": "mpirun",
+        "stopOnEntry": false,
+        "cwd": "${workspaceFolder}",
+        "python": "/usr/bin/python3",
+        "env": {},
+        "externalConsole": false,
+        "internalConsoleOptions": "neverOpen",
+        "debugOptions": ["RedirectOutput"]
+      }
+    ]
+  }
+  
