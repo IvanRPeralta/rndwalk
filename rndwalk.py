@@ -95,28 +95,28 @@ class Model:
         self.runner.schedule_repeating_event(1, 1, self.step)#programa llamar la funcion step() en el tick 1 y repetirlo cada 1 tick
         self.runner.schedule_repeating_event(1.1, 10, self.log_agents)#programa llamar la función log_agents() en el tick 1.1 y repetirlo cada 10 tick
         self.runner.schedule_stop(params['stop.at'])#prgrama en que tick finaliza la simulación, el mismo esta alacenado en la clave stop.at del diccionario params
-        self.runner.schedule_end_event(self.at_end)
+        self.runner.schedule_end_event(self.at_end)#programa que funcion ejecutar al finalizar la simulacion
 
         # create the context to hold the agents and manage cross process
         # synchronization
-        self.context = ctx.SharedContext(comm)
+        self.context = ctx.SharedContext(comm)#crea el contexto
 
         # create a bounding box equal to the size of the entire global world grid
-        box = space.BoundingBox(0, params['world.width'], 0, params['world.height'], 0, 0)
+        box = space.BoundingBox(0, params['world.width'], 0, params['world.height'], 0, 0)#define los bordes de la grilla
         # create a SharedGrid of 'box' size with sticky borders that allows multiple agents
         # in each grid location.
         self.grid = space.SharedGrid(name='grid', bounds=box, borders=space.BorderType.Sticky,
-                                     occupancy=space.OccupancyType.Multiple, buffer_size=2, comm=comm)
-        self.context.add_projection(self.grid)
+                                     occupancy=space.OccupancyType.Multiple, buffer_size=2, comm=comm)#crea la grilla
+        self.context.add_projection(self.grid)# Arega la grilla al contexto
 
-        rank = comm.Get_rank()
+        rank = comm.Get_rank()#me dice en que rango esta corriendo este archivo
         rng = repast4py.random.default_rng
         for i in range(params['walker.count']):
             # get a random x,y location in the grid
             pt = self.grid.get_random_local_pt(rng)
             # create and add the walker to the context
             walker = Walker(i, rank, pt)
-            self.context.add(walker)
+            self.context.add(walker)#agrega el caminante al contexto
             self.grid.move(walker, pt)
 
         # initialize the logging
