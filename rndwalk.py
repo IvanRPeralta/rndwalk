@@ -173,4 +173,4 @@ if __name__ == "__main__":
     parser = parameters.create_args_parser()
     args = parser.parse_args()
     params = parameters.init_params(args.parameters_file, args.parameters)
-    run(params)#params es un diccionario con los parámetros que estan en el archivo random_walk.yaml
+    run(params)#params  es un diccionario con los parámetros que estan en el archivo random_walk.yaml
